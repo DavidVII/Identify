@@ -1,2 +1,6 @@
+- if current_user.present?
+  = "Account: #{current_user.first_name} #{current_user.last_name}"
+  = link_to 'Sign out', destroy_user_session_path, method: :delete
+
 = link_to 'Sign up', 'users/sign_up'
 = link_to 'Sign in', 'users/sign_in'
