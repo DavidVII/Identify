@@ -1,6 +1,8 @@
-- if current_user.present?
-  = "Account: #{current_user.first_name} #{current_user.last_name}"
-  = link_to 'Sign out', destroy_user_session_path, method: :delete
+.container
+  .home-banner
+    %h1 Welcome to the Identify App!
+    %p.lead
+      The worlds best place for all your verification needs!
 
-= link_to 'Sign up', new_user_registration_path
-= link_to 'Sign in', new_user_session_path
+    = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary'
+

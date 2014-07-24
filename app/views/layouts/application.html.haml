@@ -6,6 +6,30 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    .navbar.navbar-inverse.navbar-static-top
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse",
+            "data-toggle" => "collapse", :type => "button"}
+
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+
+          = link_to 'Identify', root_url, class:'navbar-brand'
+
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            - if current_user.present?
+              %li
+                = link_to '#' do
+                  = "#{current_user.first_name} #{current_user.last_name}"
+              %li
+                = link_to 'Sign out', destroy_user_session_path, method: :delete
+            - else
+              %li= link_to 'Sign in', new_user_session_path
+
     - flash.each do |key, value|
       %div{ class: "alert alert-#{key}" }
         .container
