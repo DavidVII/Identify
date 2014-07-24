@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Allows users to signup' do
+feature 'Allows users to signup and sign in' do
   scenario 'Viewing signup/signin options on homepage' do
     visit root_url
 
@@ -41,5 +41,6 @@ feature 'Allows users to signup' do
     current_user_name = "#{current_user.first_name} #{current_user.last_name}"
 
     expect(page).to have_content(current_user_name)
+    expect(page.current_url).to include('/unverified')
   end
 end

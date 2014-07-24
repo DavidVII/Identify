@@ -2,7 +2,12 @@
 
 FactoryGirl.define do
   factory :user do
-    first_name "MyString"
-    date_of_birth "MyString"
+    first_name "Bruce"
+    middle_name "Thomas"
+    last_name "Wayne"
+    date_of_birth "12-19-1984"
+    email "bruce@example.com"
+    password "thebat4eva"
+    confirmed_at 1.day.ago
   end
 end

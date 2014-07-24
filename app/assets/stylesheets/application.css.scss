@@ -7,6 +7,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Default Style
+
 .alert {
   border-radius: 0;
   margin-top: -21px;
@@ -51,8 +53,26 @@
   @extend .has-error;
 }
 
+.fa-check {
+  color: #070;
+}
+
+.fa-times {
+  color: #900;
+}
+
+// New user form
+
 #new_user {
   .btn {
     margin-bottom: 20px;
+  }
+}
+
+// Unverified page
+
+#pages-unverified {
+  .app-checklist {
+    font-size: 20px;
   }
 }
