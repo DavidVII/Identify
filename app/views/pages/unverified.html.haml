@@ -6,7 +6,10 @@
 
       %ul.app-checklist.list-unstyled
         %li
-          = fa_icon 'check'
+          - if current_user.confirmed?
+            = fa_icon 'check'
+          - else
+            = fa_icon 'times'
           Confirmed Email
         %li
           = fa_icon 'times'
@@ -19,7 +22,7 @@
       %h2
         Get Verified
 
-      = form_for @user, method: :post, html: {class: 'verification-form'} do |f|
+      = form_for @user, html: {class: 'verification-form'} do |f|
         .form-group
           = f.label :first_name, class: 'control-label'
           = f.text_field :first_name, disabled: true, class: 'form-control'
