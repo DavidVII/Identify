@@ -4,8 +4,8 @@ feature 'Allows users to signup' do
   scenario 'Viewing signup/signin options on homepage' do
     visit root_url
 
-    expect(page).to have_link('Sign up', href: 'users/sign_up')
-    expect(page).to have_link('Sign in', href: 'users/sign_in')
+    expect(page).to have_link('Sign up', href: new_user_registration_path)
+    expect(page).to have_link('Sign in', href: new_user_session_path)
   end
 
   scenario 'Viewing the signup form' do
@@ -18,6 +18,7 @@ feature 'Allows users to signup' do
   scenario 'User signs up and confirms account' do
     visit root_url
     click_link 'Sign up'
+
     within('form#new_user') do
       fill_in 'First name', with: 'Bruce'
       fill_in 'Middle name', with: 'Thomas'
@@ -36,6 +37,9 @@ feature 'Allows users to signup' do
     fill_in 'Password', with: 'thebat4eva'
     click_button 'Sign in'
 
-    expect(page).to have_content('Account: Bruce Wayne')
+    current_user = User.last
+    current_user_name = "#{current_user.first_name} #{current_user.last_name}"
+
+    expect(page).to have_content(current_user_name)
   end
 end
