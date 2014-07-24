@@ -36,3 +36,8 @@
           = content_tag(:div, value, class: "message")
 
     = yield
+
+    - if Rails.env.development?
+      .container
+        .debug
+        = debug(params)
