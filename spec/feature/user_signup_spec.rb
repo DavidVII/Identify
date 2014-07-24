@@ -5,5 +5,6 @@ feature 'Allows users to signup' do
     visit root_url
 
     expect(page).to have_content('Signup')
+    expect(page).to have_content('Signin')
   end
 end
