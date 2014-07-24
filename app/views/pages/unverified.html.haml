@@ -11,8 +11,11 @@
           - else
             = fa_icon 'times'
           Confirmed Email
-        %li
-          = fa_icon 'times'
+        %li.verification
+          - if current_user.verified?
+            = fa_icon 'check'
+          - else
+            = fa_icon 'times'
           Verified
         %li
           = fa_icon 'times'
@@ -22,7 +25,9 @@
       %h2
         Get Verified
 
-      = form_for @user, html: {class: 'verification-form'} do |f|
+      = form_for @user, url: verify_user_path(@user),
+                        html: { method: :post, class: 'verification'} do |f|
+
         .form-group
           = f.label :first_name, class: 'control-label'
           = f.text_field :first_name, disabled: true, class: 'form-control'
@@ -39,6 +44,30 @@
           = f.label :date_of_birth, class: 'control-label'
           = f.text_field :date_of_birth, disabled: true, class: 'form-control'
 
-        = f.button "Submit", class: 'btn btn-primary',
-          data: {disable_with: "#{fa_icon('spinner spin')} Submitting"}
+        = f.fields_for @address do |ff|
+          .form-group
+            = ff.label :street1, 'Street', class: 'control-label'
+            = ff.text_field :street1, class: 'form-control'
+          .form-group
+            = ff.label :street2, 'Street continued', class: 'control-label'
+            = ff.text_field :street2, class: 'form-control'
+          .form-group
+            = ff.label :city, class: 'control-label'
+            = ff.text_field :city, class: 'form-control'
+          .form-group
+            = ff.label :state, class: 'control-label'
+            = ff.text_field :state, class: 'form-control'
+          .form-group
+            = ff.label :country_code, 'Country', class: 'control-label'
+            = ff.text_field :country_code, class: 'form-control'
+          .form-group
+            = ff.label :postal_code, 'ZIP', class: 'control-label'
+            = ff.text_field :postal_code, class: 'form-control'
 
+        .form-group
+          = f.label :ssn, 'SSN', class: 'control-label'
+          = f.text_field :ssn, class: 'form-control', placeholder: 'Last 4 of SSN'
+
+
+        = f.button "Verify my identity", class: 'btn btn-primary',
+          data: {disable_with: "#{fa_icon('spinner spin')} Verifying"}

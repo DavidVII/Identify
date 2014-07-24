@@ -6,5 +6,6 @@ class PagesController < ApplicationController
 
   def unverified
     @user = current_user
+    @address = @user.build_address
   end
 end
