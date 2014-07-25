@@ -29,9 +29,7 @@ class AddressesController < ApplicationController
   end
 
   def verify_user
-    @user = current_user
-    @user.verify
-
-    @user.save
+    current_user.verify
+    current_user.save
   end
 end

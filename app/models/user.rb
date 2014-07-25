@@ -11,10 +11,9 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   def verify
-    data = build_verification_data(self)
-    user = BlockScore::Client.new(ENV['BLOCKSCORE_API_KEY'], version = 3)
+    client = BlockScore::Client.new(ENV['BLOCKSCORE_API_KEY'], version = 3)
 
-    blockscore_verification = user.verification.create(data)
+    blockscore_verification = client.verification.create(self.data_package)
 
     self.verification_id = blockscore_verification["id"]
 
@@ -25,14 +24,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def build_verification_data(user)
-    address = user.address
+  def data_package
+    address = self.address
 
     data = {
-      date_of_birth: user.date_of_birth,
-      identification: { ssn: user.ssn },
-      name: { first: user.first_name, middle: user.middle_name,
-              last: user.last_name },
+      date_of_birth: self.date_of_birth,
+      identification: { ssn: self.ssn },
+      name: { first: self.first_name, middle: self.middle_name,
+              last: self.last_name },
       address: { street1: address.street1, street2: address.street2,
                 city: address.city, state: address.state,
                 postal_code: address.postal_code,
