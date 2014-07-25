@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Allows users to signup and sign in' do
+feature 'User manages their account' do
   scenario 'Viewing signup/signin options on homepage' do
     visit root_url
 
@@ -18,18 +18,7 @@ feature 'Allows users to signup and sign in' do
   scenario 'User signs up and confirms account' do
     visit root_url
     click_link 'Sign up'
-
-    within('form#new_user') do
-      fill_in 'First name', with: 'Bruce'
-      fill_in 'Middle name', with: 'Thomas'
-      fill_in 'Last name', with: 'Wayne'
-      fill_in 'Date of birth', with: '2-19-1939'
-      fill_in 'Email', with: 'bruce@example.com'
-      fill_in 'Password', with: 'thebat4eva'
-      fill_in 'Password confirmation', with: 'thebat4eva'
-      fill_in 'Last 4 of SSN', with: '1234'
-      click_button 'Sign up'
-    end
+    sign_up_user
 
     open_email 'bruce@example.com'
     visit_in_email 'Confirm my account'
@@ -43,5 +32,24 @@ feature 'Allows users to signup and sign in' do
 
     expect(page).to have_content(current_user_name)
     expect(page.current_url).to include(new_address_path)
+  end
+
+  describe 'User edits their account' do
+    before do
+      user = FactoryGirl.create(:user)
+      sign_in(user)
+      visit edit_user_registration_path
+    end
+
+    scenario 'User updates account' do
+      fill_in 'First name', with: 'Alfred'
+      fill_in 'Middle name', with: ''
+      fill_in 'Last name', with: 'Pennyworth'
+      fill_in 'Last 4 of SSN', with: '1234'
+      fill_in 'Current password', with: 'thebat4eva'
+      click_button 'Update account'
+
+      expect(page).to have_content('Alfred Pennyworth')
+    end
   end
 end

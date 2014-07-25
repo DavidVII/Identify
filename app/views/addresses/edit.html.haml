@@ -8,6 +8,10 @@
 
     .col-md-9
       %h2 Update your address
+      %p
+        Or you can also update your
+        = link_to edit_user_registration_path do
+          personal information
 
       = form_for @address, html: { class: 'verification'} do |f|
         = render 'shared/error_messages', object: @address

@@ -23,7 +23,7 @@
           %ul.nav.navbar-nav
             - if current_user.present?
               %li
-                = link_to '#' do
+                = link_to edit_user_registration_path do
                   = "#{current_user.first_name} #{current_user.last_name}"
               %li
                 = link_to 'Sign out', destroy_user_session_path, method: :delete
