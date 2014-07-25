@@ -7,13 +7,8 @@
       = render('shared/checklist')
 
     .col-md-9
-      %h2
-        Get Verified
-
-      %p
-        First name:
-        = @user.first_name
-
+      %h2 Get Verified
+      %p You will need to provide your address to be verified
 
       = form_for @address, html: { class: 'verification'} do |f|
         = render 'shared/error_messages', object: @address
@@ -40,13 +35,8 @@
 
         .form-group
           = f.label :country_code, 'Country', class: 'control-label'
-          = f.text_field :country_code,
+          = f.text_field :country_code, readonly: true,
             value: 'US', class: 'form-control'
-
-        -#.form-group
-          -#= f.label :ssn, 'SSN', class: 'control-label'
-          -#= f.text_field :ssn, class: 'form-control', placeholder: 'Last 4 of SSN'
-
 
         = f.button "Verify my identity", class: 'btn btn-primary',
           data: {disable_with: "#{fa_icon('spinner spin')} Verifying"}

@@ -8,6 +8,7 @@ FactoryGirl.define do
     date_of_birth "1984-12-19"
     email "bruce@example.com"
     password "thebat4eva"
+    ssn "0000"
     confirmed_at 1.day.ago
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724224459) do
+ActiveRecord::Schema.define(version: 20140725034404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140724224459) do
     t.string   "unconfirmed_email"
     t.string   "verification_id"
     t.boolean  "verified",               default: false
+    t.string   "ssn"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

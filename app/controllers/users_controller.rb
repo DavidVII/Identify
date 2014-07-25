@@ -10,7 +10,6 @@ class UsersController < ApplicationController
       redirect_to questionnaire_path
     else
       flash[:alert] = "You were not verified with those details"
-      redirect_to unverified_path
     end
   end
 end

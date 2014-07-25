@@ -7,6 +7,12 @@ RSpec.describe User, :type => :model do
     it { should validate_presence_of :date_of_birth }
     it { should validate_presence_of :email }
     it { should validate_presence_of :password }
+    it { should validate_presence_of :ssn }
+
+    it { should_not allow_value('abc1').for(:ssn) }
+    it { should_not allow_value('abc123').for(:ssn) }
+
+    it { should allow_value('1234').for(:ssn) }
   end
 
   describe 'Associations' do

@@ -61,19 +61,18 @@
   color: #900;
 }
 
+.app-checklist {
+  font-size: 20px;
+}
+
+.debug_dump {
+  margin-top: 50px;
+}
+
 // New user form
 
 #new_user {
   .btn {
     margin-bottom: 20px;
-  }
-}
-
-// Unverified page
-
-#pages-unverified,
-#pages-questionnaire {
-  .app-checklist {
-    font-size: 20px;
   }
 }

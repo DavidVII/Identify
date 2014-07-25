@@ -27,6 +27,7 @@ feature 'Allows users to signup and sign in' do
       fill_in 'Email', with: 'bruce@example.com'
       fill_in 'Password', with: 'thebat4eva'
       fill_in 'Password confirmation', with: 'thebat4eva'
+      fill_in 'Last 4 of SSN', with: '1234'
       click_button 'Sign up'
     end
 
@@ -41,6 +42,6 @@ feature 'Allows users to signup and sign in' do
     current_user_name = "#{current_user.first_name} #{current_user.last_name}"
 
     expect(page).to have_content(current_user_name)
-    expect(page.current_url).to include('/unverified')
+    expect(page.current_url).to include(new_address_path)
   end
 end
