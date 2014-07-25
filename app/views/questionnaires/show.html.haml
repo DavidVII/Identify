@@ -1,0 +1,23 @@
+.container
+  .row
+    .col-md-3
+      %h2
+        Your Checklist
+
+      = render('shared/checklist')
+
+    .col-md-9
+      %h2 Questionnaire
+
+      %p Great! You are verified. Now answer these questions for extra points!
+
+      = form_tag(kb_authorization_path(current_user), method: :post) do
+        - @questions_hash.each_with_index do |q,i|
+          .form-group
+            = label_tag "question_#{q['id']}", q['question'], class: 'control-label'
+            = select_tag "answer_#{q['answers'][i]['id']}",
+              options_for_select(q['answers'].collect{ |a| [a['answer'], a['id']]}),
+              class: 'form-control'
+
+        = button_tag 'Submit', class: 'btn btn-primary',
+          data: {disable_with: "#{fa_icon('spinner spin')} Submitting"}

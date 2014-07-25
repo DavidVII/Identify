@@ -8,7 +8,4 @@ class PagesController < ApplicationController
     @user = current_user
     @address = Address.new
   end
-
-  def questionnaire
-  end
 end

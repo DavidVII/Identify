@@ -7,8 +7,7 @@
       = render('shared/checklist')
 
     .col-md-9
-      %h2 Get Verified
-      %p You will need to provide your address to be verified
+      %h2 Update your address
 
       = form_for @address, html: { class: 'verification'} do |f|
         = render 'shared/error_messages', object: @address

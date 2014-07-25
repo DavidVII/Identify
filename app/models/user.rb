@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  @@client = BlockScore::Client.new(ENV['BLOCKSCORE_API_KEY'], version = 3)
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -11,9 +13,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   def verify
-    client = BlockScore::Client.new(ENV['BLOCKSCORE_API_KEY'], version = 3)
-
-    blockscore_verification = client.verification.create(self.data_package)
+    blockscore_verification = @@client.verification.create(self.data_package)
 
     self.verification_id = blockscore_verification["id"]
 
@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
     else
       self.verified = false
     end
+
+    self.save
   end
 
   def data_package
@@ -37,5 +39,22 @@ class User < ActiveRecord::Base
                 postal_code: address.postal_code,
                 country_code: address.country_code }
     }
+  end
+
+  def retrieve_questions
+    user_verification = @@client.verification.retrieve(self.verification_id)
+    if user_verification["question_sets"].present?
+      question_set = @@client.question_set.retrieve(
+                                    user_verification["question_sets"].sample)
+
+      question_set["questions"]
+    else
+      question_set = generate_questions
+      question_set["questions"]
+    end
+  end
+
+  def generate_questions
+    @@client.question_set.create(self.verification_id)
   end
 end

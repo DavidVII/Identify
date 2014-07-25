@@ -3,10 +3,10 @@ Rails.application.routes.draw do
                                     confirmations: 'confirmations' }
 
   post '/verify-user/:id', to: 'users#verify_user', as: :verify_user
+  post '/kb_auth/:id', to: 'questionnaires#authorize', as: :kb_authorization
 
-  get '/questionnaire', to: 'pages#questionnaire', as: :questionnaire
-
-  resources :addresses, only: [:new, :create]
+  resources :addresses, only: [:new, :create, :edit, :update]
+  resource :questionnaire, only: [:show]
 
   root 'pages#index'
 end

@@ -13,9 +13,25 @@ class AddressesController < ApplicationController
 
     if @address.save
       verify_user
+      direct_user
+    else
+      render :new
+    end
+  end
 
-      flash[:success] = 'Your address has been saved'
-      redirect_to questionnaire_path
+  def edit
+    @user = current_user
+    @address = @user.address
+  end
+
+  def update
+    @user = current_user
+    @address = Address.find(params[:id])
+    @address.update_attributes(address_params)
+
+    if @address.save
+      verify_user
+      direct_user
     else
       render :new
     end
@@ -31,5 +47,15 @@ class AddressesController < ApplicationController
   def verify_user
     current_user.verify
     current_user.save
+  end
+
+  def direct_user
+    if current_user.verified?
+      flash[:success] = 'Your address has been saved'
+      redirect_to questionnaire_path
+    else
+      flash[:alert] = "You were not verified with those details"
+      redirect_to edit_address_path(@address)
+    end
   end
 end
