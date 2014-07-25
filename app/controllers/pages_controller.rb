@@ -8,4 +8,7 @@ class PagesController < ApplicationController
     @user = current_user
     @address = @user.build_address
   end
+
+  def questionnaire
+  end
 end

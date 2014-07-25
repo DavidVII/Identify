@@ -1,0 +1,16 @@
+%ul.app-checklist.list-unstyled
+  %li
+    - if current_user.confirmed?
+      = fa_icon 'check'
+    - else
+      = fa_icon 'times'
+    Confirmed Email
+  %li.verification
+    - if current_user.verified?
+      = fa_icon 'check'
+    - else
+      = fa_icon 'times'
+    Verified
+  %li
+    = fa_icon 'times'
+    Questionnaire

@@ -4,22 +4,7 @@
       %h2
         Your Checklist
 
-      %ul.app-checklist.list-unstyled
-        %li
-          - if current_user.confirmed?
-            = fa_icon 'check'
-          - else
-            = fa_icon 'times'
-          Confirmed Email
-        %li.verification
-          - if current_user.verified?
-            = fa_icon 'check'
-          - else
-            = fa_icon 'times'
-          Verified
-        %li
-          = fa_icon 'times'
-          Questionnaire
+      = render('checklist')
 
     .col-md-9
       %h2
@@ -48,21 +33,27 @@
           .form-group
             = ff.label :street1, 'Street', class: 'control-label'
             = ff.text_field :street1, class: 'form-control'
+
           .form-group
             = ff.label :street2, 'Street continued', class: 'control-label'
             = ff.text_field :street2, class: 'form-control'
+
           .form-group
             = ff.label :city, class: 'control-label'
             = ff.text_field :city, class: 'form-control'
+
           .form-group
             = ff.label :state, class: 'control-label'
             = ff.text_field :state, class: 'form-control'
-          .form-group
-            = ff.label :country_code, 'Country', class: 'control-label'
-            = ff.text_field :country_code, class: 'form-control'
+
           .form-group
             = ff.label :postal_code, 'ZIP', class: 'control-label'
             = ff.text_field :postal_code, class: 'form-control'
+
+          .form-group
+            = ff.label :country_code, 'Country', class: 'control-label'
+            = ff.text_field :country_code,
+              value: 'US', class: 'form-control'
 
         .form-group
           = f.label :ssn, 'SSN', class: 'control-label'

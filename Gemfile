@@ -17,9 +17,12 @@ gem 'haml-rails', '~> 0.5.3'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'devise', '~> 3.2.4'
 gem 'font-awesome-rails', '~> 4.1.0'
+gem 'blockscore', '~> 2.1.2'
+gem 'figaro', '~> 0.7.0'
 
 group :development do
   gem 'better_errors', '~> 1.1.0'
+  gem 'binding_of_caller', '~> 0.7.2'
   gem 'spring-commands-rspec', '~> 1.0.2'
 end
 gem 'email_spec', '~> 1.6.0', group: :test

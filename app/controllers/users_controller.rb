@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
   def verify_user
     @user = User.find(params[:id])
-    @user.verify
+    address_details = { address: request.params[:user][:address] }
+
+    @user.verify(@user, address_details, params[:user][:ssn])
+    @user.save
 
     if @user.verified?
-      flash[:success] = request.params
+      redirect_to questionnaire_path
+    else
+      flash[:alert] = "You were not verified with those details"
       redirect_to unverified_path
     end
   end
