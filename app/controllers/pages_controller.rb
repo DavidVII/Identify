@@ -2,13 +2,18 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    if current_user.present?
+    if current_user.present? && current_user.score > 75
+      redirect_to success_page_path
+    elsif current_user.present?
       direct_user
     end
   end
 
   def success
-
+    if current_user.score < 75
+      flash[:alert] = 'You have not been authorized yet'
+      direct_user
+    end
   end
 
   private
