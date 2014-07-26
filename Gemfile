@@ -40,3 +40,5 @@ group :development, :test do
   gem 'awesome_print', '~> 1.2.0'
   gem 'pry-rails', '~> 0.3.2'
 end
+
+gem 'rails_12factor', group: :production
