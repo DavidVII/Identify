@@ -12,5 +12,8 @@
       = fa_icon 'times'
     Verified
   %li
-    = fa_icon 'times'
+    - if current_user.score > 75
+      = fa_icon 'check'
+    - else
+      = fa_icon 'times'
     Questionnaire

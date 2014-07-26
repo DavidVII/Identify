@@ -22,8 +22,6 @@ class User < ActiveRecord::Base
     else
       self.verified = false
     end
-
-    self.save
   end
 
   def data_package
@@ -41,6 +39,15 @@ class User < ActiveRecord::Base
     }
   end
 
+  def retrieve_question_set
+    user_verification = @@client.verification.retrieve(self.verification_id)
+    if user_verification["question_sets"].present?
+      @@client.question_set.retrieve(user_verification["question_sets"].sample)
+    else
+      generate_questions
+    end
+  end
+
   def retrieve_questions
     user_verification = @@client.verification.retrieve(self.verification_id)
     if user_verification["question_sets"].present?
@@ -56,5 +63,19 @@ class User < ActiveRecord::Base
 
   def generate_questions
     @@client.question_set.create(self.verification_id)
+  end
+
+  def kb_authenticate(submitted_answers)
+    question_set = retrieve_question_set
+
+    score_response = @@client.question_set.score(
+      question_set_id = question_set['id'],
+
+      answers = submitted_answers.each_with_index.map do |a,i|
+        { question_id: i+1, answer_id: a.last.to_i }
+      end
+    )
+
+    self.score = score_response['score']
   end
 end
